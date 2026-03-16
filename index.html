@@ -30,8 +30,25 @@
   --paypal: #0070ba;
 }
 
+/* Light theme: manual override or system preference */
+html.light {
+  --bg: #f5f5f0;
+  --bg-2: #ffffff;
+  --bg-3: #eeeee8;
+  --border: rgba(0,0,0,0.06);
+  --border-2: rgba(0,0,0,0.12);
+  --text: #1a1a1a;
+  --text-2: #5c5c5c;
+  --text-3: #8c8c8c;
+  --gold: #b8860b;
+  --gold-dim: rgba(184, 134, 11, 0.08);
+  --gold-glow: rgba(184, 134, 11, 0.12);
+  --shadow: rgba(0,0,0,0.08);
+  --grid-line: rgba(0,0,0,0.025);
+}
+
 @media (prefers-color-scheme: light) {
-  :root {
+  html:not(.dark):not(.light) {
     --bg: #f5f5f0;
     --bg-2: #ffffff;
     --bg-3: #eeeee8;
@@ -80,33 +97,126 @@ body::before {
   padding: 0 28px;
 }
 
-/* Lang */
-.lang-switch {
+/* Top controls */
+.top-controls {
   position: fixed;
   top: 20px;
   right: 24px;
   z-index: 200;
   display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-2);
+  background: var(--bg-2);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  color: var(--text-3);
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  border-color: var(--gold-glow);
+  color: var(--gold);
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s;
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(30deg);
+}
+
+/* Sun icon hidden in dark, moon hidden in light */
+.theme-icon-moon { display: block; }
+.theme-icon-sun { display: none; }
+html.light .theme-icon-moon { display: none; }
+html.light .theme-icon-sun { display: block; }
+@media (prefers-color-scheme: light) {
+  html:not(.dark):not(.light) .theme-icon-moon { display: none; }
+  html:not(.dark):not(.light) .theme-icon-sun { display: block; }
+}
+
+/* Lang */
+.lang-dropdown {
+  position: relative;
+}
+
+.lang-btn {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-2);
+  background: var(--bg-2);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  color: var(--text-3);
+  font: 12px/1 'Outfit', sans-serif;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.lang-btn:hover {
+  border-color: var(--gold-glow);
+  color: var(--gold);
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
   background: var(--bg-2);
   border: 1px solid var(--border-2);
   border-radius: 6px;
   overflow: hidden;
   backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+  min-width: 80px;
+  box-shadow: 0 8px 24px var(--shadow);
 }
 
-.lang-switch button {
+.lang-dropdown.open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-menu button {
+  display: block;
+  width: 100%;
   background: none;
   border: none;
-  color: var(--text-3);
-  font: 12px/1 'Outfit', sans-serif;
-  padding: 6px 14px;
+  color: var(--text-2);
+  font: 12px/1 'Outfit', 'Noto Sans SC', sans-serif;
+  padding: 8px 14px;
   cursor: pointer;
-  transition: all 0.3s;
-  letter-spacing: 0.5px;
+  text-align: left;
+  transition: all 0.2s;
 }
 
-.lang-switch button.active {
+.lang-menu button:hover {
   background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.lang-menu button.active {
   color: var(--gold);
 }
 
@@ -179,19 +289,31 @@ body::before {
   color: var(--text-2);
   text-decoration: none;
   transition: all 0.3s;
-  padding: 10px 28px;
+  padding: 10px 24px;
   border: 1px solid var(--border-2);
   border-radius: 8px;
   background: var(--bg-2);
   font-weight: 400;
   letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-links a svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .hero-links a:hover {
   color: var(--gold);
   border-color: var(--gold-glow);
   background: var(--gold-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--shadow);
 }
+
 
 /* ─── SUPPORT SECTION ─── */
 .support {
@@ -243,15 +365,31 @@ body::before {
 .pay-card::before {
   content: '';
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.pay-card::after {
+  content: '';
+  position: absolute;
   inset: 0;
   border-radius: 16px;
   opacity: 0;
   transition: opacity 0.4s;
 }
 
-.pay-card.wechat::before { background: radial-gradient(circle at 50% 100%, rgba(7,193,96,0.06) 0%, transparent 70%); }
-.pay-card.alipay::before { background: radial-gradient(circle at 50% 100%, rgba(22,119,255,0.06) 0%, transparent 70%); }
-.pay-card.paypal::before { background: radial-gradient(circle at 50% 100%, rgba(0,112,186,0.06) 0%, transparent 70%); }
+.pay-card.wechat::before { background: var(--wechat); }
+.pay-card.alipay::before { background: var(--alipay); }
+.pay-card.paypal::before { background: var(--paypal); }
+
+.pay-card.wechat::after { background: radial-gradient(circle at 50% 100%, rgba(7,193,96,0.06) 0%, transparent 70%); }
+.pay-card.alipay::after { background: radial-gradient(circle at 50% 100%, rgba(22,119,255,0.06) 0%, transparent 70%); }
+.pay-card.paypal::after { background: radial-gradient(circle at 50% 100%, rgba(0,112,186,0.06) 0%, transparent 70%); }
 
 .pay-card:hover {
   transform: translateY(-4px);
@@ -259,7 +397,7 @@ body::before {
   box-shadow: 0 12px 40px var(--shadow);
 }
 
-.pay-card:hover::before { opacity: 1; }
+.pay-card:hover::before, .pay-card:hover::after { opacity: 1; }
 
 .pay-icon {
   width: 40px;
@@ -328,9 +466,7 @@ body::before {
 }
 
 .sponsors-wall .sec-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  text-align: center;
   margin-bottom: 32px;
 }
 
@@ -338,14 +474,14 @@ body::before {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
+  gap: 32px;
 }
 
 .sponsor-person {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   animation: rise 0.5s ease both;
 }
 
@@ -355,15 +491,15 @@ body::before {
 .sponsor-person:nth-child(4) { animation-delay: 0.6s; }
 
 .sponsor-avatar {
-  width: 56px;
-  height: 56px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
   border: 2px solid var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   color: var(--gold);
   position: relative;
@@ -488,9 +624,7 @@ body::before {
 }
 
 .projects-sec .sec-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  text-align: center;
   margin-bottom: 28px;
 }
 
@@ -502,56 +636,81 @@ body::before {
   font-weight: 500;
 }
 
-.sec-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
 .proj-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .proj-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
+  text-align: center;
+  gap: 12px;
+  padding: 28px 20px 24px;
   background: var(--bg-2);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
 }
 
 .proj-item:hover {
-  border-color: var(--border-2);
-  background: var(--bg-3);
+  border-color: var(--gold-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px var(--shadow);
 }
 
+.proj-item:hover::before { opacity: 1; }
+
 .proj-item:hover .proj-name { color: var(--gold); }
+.proj-item:hover .proj-emoji { transform: scale(1.15); }
 
 .proj-emoji {
-  font-size: 24px;
+  font-size: 32px;
   flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold-dim);
+  border-radius: 14px;
+  transition: transform 0.3s;
 }
 
 .proj-body {
   flex: 1;
   min-width: 0;
+  width: 100%;
 }
 
 .proj-top {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  margin-bottom: 6px;
 }
 
 .proj-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   transition: color 0.3s;
 }
@@ -559,26 +718,57 @@ body::before {
 .proj-star {
   font-size: 11px;
   color: var(--gold);
-  opacity: 0.7;
-  margin-left: auto;
   flex-shrink: 0;
+  background: var(--gold-dim);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
 }
 
 .proj-desc {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-3);
-  margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.5;
 }
 
 /* ─── FOOTER ─── */
 .footer {
-  padding: 40px 0 32px;
+  padding: 48px 0 36px;
   text-align: center;
   font-size: 12px;
   color: var(--text-3);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  border-color: var(--gold-glow);
+  background: var(--gold-dim);
+  transform: translateY(-2px);
+}
+
+.footer-links a svg {
+  width: 16px;
+  height: 16px;
 }
 
 .footer a {
@@ -594,9 +784,9 @@ body::before {
   .hero { padding: 70px 0 40px; }
   .hero h1 { font-size: 42px; }
   .pay-grid { grid-template-columns: 1fr; max-width: 280px; margin: 0 auto; }
-  .proj-grid { grid-template-columns: 1fr; }
+  .proj-grid { grid-template-columns: 1fr 1fr; }
   .divider { padding: 0 20px; }
-  .lang-switch { top: 12px; right: 12px; }
+  .top-controls { top: 12px; right: 12px; }
 }
 
 /* ─── ANIMATIONS ─── */
@@ -626,32 +816,54 @@ body::before {
 <body>
 <div class="page">
 
-<div class="lang-switch">
-  <button class="active" onclick="switchLang('zh')">中文</button>
-  <button onclick="switchLang('en')">EN</button>
+<div class="top-controls">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="4.22" x2="19.78" y2="5.64"/></svg>
+  </button>
+  <div class="lang-dropdown" id="langDropdown">
+    <button class="lang-btn" onclick="document.getElementById('langDropdown').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    </button>
+    <div class="lang-menu">
+      <button class="active" onclick="switchLang('zh')">中文</button>
+      <button onclick="switchLang('en')">English</button>
+      <button onclick="switchLang('ja')">日本語</button>
+      <button onclick="switchLang('ko')">한국어</button>
+    </div>
+  </div>
 </div>
 
 <div class="wrap">
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge" data-zh="独立开发者" data-en="Independent Developer">独立开发者</div>
-    <h1><span>Lifedever.</span></h1>
-    <p class="hero-sub" data-zh="独立开发者 · 用代码创造价值" data-en="Independent Developer · Creating Value with Code">独立开发者 · 用代码创造价值</p>
+    <div class="hero-badge" data-zh="独立开发者" data-en="Independent Developer" data-ja="インディー開発者" data-ko="인디 개발자">独立开发者</div>
+    <h1><span>Lifedever</span></h1>
+    <p class="hero-sub" data-zh="独立开发者 · 用代码创造价值" data-en="Independent Developer · Creating Value with Code" data-ja="インディー開発者 · コードで価値を創る" data-ko="인디 개발자 · 코드로 가치를 창조하다">独立开发者 · 用代码创造价值</p>
     <nav class="hero-links">
-      <a href="https://github.com/lifedever" target="_blank">GitHub</a>
-      <a href="#projects" data-zh="项目" data-en="Projects">项目</a>
-      <a href="#support" data-zh="支持我" data-en="Support">支持我</a>
+      <a href="https://github.com/lifedever" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+      <a href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span data-zh="项目" data-en="Projects" data-ja="プロジェクト" data-ko="프로젝트">项目</span></a>
+      <a href="#support"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-zh="支持我" data-en="Support" data-ja="サポート" data-ko="후원하기">支持我</span></a>
     </nav>
   </section>
 
   <!-- PROJECTS -->
   <section class="projects-sec" id="projects">
     <div class="sec-head">
-      <span class="sec-label" data-zh="开源项目" data-en="Open Source">开源项目</span>
-      <span class="sec-line"></span>
+      <span class="sec-label" data-zh="开源项目" data-en="Open Source" data-ja="オープンソース" data-ko="오픈소스">开源项目</span>
     </div>
     <div class="proj-grid">
+      <a class="proj-item" href="https://github.com/lifedever/TaskTick" target="_blank">
+        <span class="proj-emoji">⏰</span>
+        <div class="proj-body">
+          <div class="proj-top">
+            <span class="proj-name">TaskTick</span>
+            <span class="proj-star">&#9733; 0</span>
+          </div>
+          <div class="proj-desc" data-zh="macOS 原生定时任务管理应用" data-en="Native macOS scheduled task manager" data-ja="macOS ネイティブ定時タスク管理アプリ" data-ko="macOS 네이티브 예약 작업 관리 앱">macOS 原生定时任务管理应用</div>
+        </div>
+      </a>
       <a class="proj-item" href="https://github.com/lifedever/health-tick-release" target="_blank">
         <span class="proj-emoji">🏃</span>
         <div class="proj-body">
@@ -659,7 +871,7 @@ body::before {
             <span class="proj-name">HealthTick</span>
             <span class="proj-star">&#9733; 10</span>
           </div>
-          <div class="proj-desc" data-zh="macOS 久坐提醒 · 强制休息 · 习惯养成" data-en="macOS sedentary reminder · forced breaks · habit building">macOS 久坐提醒 · 强制休息 · 习惯养成</div>
+          <div class="proj-desc" data-zh="macOS 久坐提醒 · 强制休息 · 习惯养成" data-en="macOS sedentary reminder · forced breaks · habit building" data-ja="macOS 座りすぎリマインダー · 強制休憩 · 習慣づくり" data-ko="macOS 오래 앉기 알림 · 강제 휴식 · 습관 형성">macOS 久坐提醒 · 强制休息 · 习惯养成</div>
         </div>
       </a>
       <a class="proj-item" href="https://github.com/lifedever/smart-cleaner" target="_blank">
@@ -669,7 +881,7 @@ body::before {
             <span class="proj-name">Smart Cleaner</span>
             <span class="proj-star">&#9733; 14</span>
           </div>
-          <div class="proj-desc" data-zh="指定目录垃圾清理，安全移至回收站" data-en="Directory cleanup, safely moves junk to Trash">指定目录垃圾清理，安全移至回收站</div>
+          <div class="proj-desc" data-zh="指定目录垃圾清理，安全移至回收站" data-en="Directory cleanup, safely moves junk to Trash" data-ja="指定ディレクトリのクリーンアップ、安全にゴミ箱へ" data-ko="지정 디렉토리 정리, 안전하게 휴지통으로">指定目录垃圾清理，安全移至回收站</div>
         </div>
       </a>
       <a class="proj-item" href="https://github.com/lifedever/CronPilot" target="_blank">
@@ -679,17 +891,7 @@ body::before {
             <span class="proj-name">CronPilot</span>
             <span class="proj-star">&#9733; 6</span>
           </div>
-          <div class="proj-desc" data-zh="本地 Crontab 可视化管理桌面应用" data-en="Visual crontab management desktop app">本地 Crontab 可视化管理桌面应用</div>
-        </div>
-      </a>
-      <a class="proj-item" href="https://github.com/lifedever/TaskTick" target="_blank">
-        <span class="proj-emoji">⏰</span>
-        <div class="proj-body">
-          <div class="proj-top">
-            <span class="proj-name">TaskTick</span>
-            <span class="proj-star">&#9733; 0</span>
-          </div>
-          <div class="proj-desc" data-zh="macOS 原生定时任务管理应用" data-en="Native macOS scheduled task manager">macOS 原生定时任务管理应用</div>
+          <div class="proj-desc" data-zh="本地 Crontab 可视化管理桌面应用" data-en="Visual crontab management desktop app" data-ja="ローカル Crontab ビジュアル管理アプリ" data-ko="로컬 Crontab 시각적 관리 앱">本地 Crontab 可视化管理桌面应用</div>
         </div>
       </a>
       <a class="proj-item" href="https://github.com/lifedever/ai-commit" target="_blank">
@@ -699,7 +901,7 @@ body::before {
             <span class="proj-name">ai-commit</span>
             <span class="proj-star">&#9733; 2</span>
           </div>
-          <div class="proj-desc" data-zh="AI 驱动的 Git Commit 消息生成器" data-en="AI-powered Git commit message generator">AI 驱动的 Git Commit 消息生成器</div>
+          <div class="proj-desc" data-zh="AI 驱动的 Git Commit 消息生成器" data-en="AI-powered Git commit message generator" data-ja="AI 駆動の Git コミットメッセージ生成ツール" data-ko="AI 기반 Git 커밋 메시지 생성기">AI 驱动的 Git Commit 消息生成器</div>
         </div>
       </a>
     </div>
@@ -710,8 +912,8 @@ body::before {
   <!-- SUPPORT -->
   <section class="support" id="support">
     <div class="support-header">
-      <h2 data-zh="请我喝杯咖啡" data-en="Buy Me a Coffee">请我喝杯咖啡</h2>
-      <p data-zh="利用业余时间维护开源项目，你的支持是我持续创作的动力。<br><em>感谢每一份鼓励。</em>" data-en="I maintain open source projects in my spare time. Your support keeps me going.<br><em>Thank you.</em>">利用业余时间维护开源项目，你的支持是我持续创作的动力。<br><em>感谢每一份鼓励。</em></p>
+      <h2 data-zh="请我喝杯咖啡" data-en="Buy Me a Coffee" data-ja="コーヒーをおごってください" data-ko="커피 한 잔 사주세요">请我喝杯咖啡</h2>
+      <p data-zh="利用业余时间维护开源项目，你的支持是我持续创作的动力。<br><em>感谢每一份鼓励。</em>" data-en="I maintain open source projects in my spare time. Your support keeps me going.<br><em>Thank you.</em>" data-ja="余暇を使ってオープンソースを開発しています。あなたのサポートが原動力です。<br><em>ご支援に感謝します。</em>" data-ko="여가 시간에 오픈소스를 개발하고 있습니다. 여러분의 후원이 큰 힘이 됩니다.<br><em>모든 응원에 감사드립니다.</em>">利用业余时间维护开源项目，你的支持是我持续创作的动力。<br><em>感谢每一份鼓励。</em></p>
     </div>
     <div class="pay-grid">
       <!-- WeChat -->
@@ -719,18 +921,18 @@ body::before {
         <div class="pay-icon wechat">
           <svg viewBox="0 0 1024 1024" fill="#07c160"><path d="M1024 619.52c0-143.36-138.24-256-307.2-256s-307.2 112.64-307.2 256 138.24 256 307.2 256c30.72 0 61.44-5.12 92.16-10.24l97.28 51.2-25.6-76.8c87.04-51.2 143.36-128 143.36-220.16z m-414.72-40.96c-30.72 0-51.2-20.48-51.2-51.2s20.48-51.2 51.2-51.2 51.2 20.48 51.2 51.2c0 25.6-25.6 51.2-51.2 51.2z m209.92 0c-30.72 0-51.2-20.48-51.2-51.2s20.48-51.2 51.2-51.2 51.2 20.48 51.2 51.2c0 25.6-25.6 51.2-51.2 51.2z" /><path d="M358.4 609.28c0-158.72 153.6-286.72 348.16-286.72h15.36c-40.96-133.12-179.2-235.52-353.28-235.52-204.8 0-368.64 138.24-368.64 307.2 0 107.52 66.56 204.8 168.96 256l-30.72 92.16L256 686.08c35.84 10.24 71.68 15.36 112.64 15.36h10.24c-15.36-30.72-20.48-61.44-20.48-92.16z m138.24-414.72c35.84 0 66.56 30.72 66.56 66.56s-30.72 66.56-66.56 66.56C460.8 322.56 430.08 291.84 430.08 256S460.8 194.56 496.64 194.56zM245.76 322.56c-35.84 0-61.44-30.72-61.44-66.56s30.72-66.56 66.56-66.56 61.44 30.72 61.44 66.56-30.72 66.56-66.56 66.56z" /></svg>
         </div>
-        <div class="pay-name" data-zh="微信支付" data-en="WeChat Pay">微信支付</div>
+        <div class="pay-name" data-zh="微信支付" data-en="WeChat Pay" data-ja="WeChat Pay" data-ko="WeChat Pay">微信支付</div>
         <img src="images/wechat-pay.jpeg" alt="WeChat Pay QR">
-        <div class="pay-hint" data-zh="打开微信扫一扫" data-en="Scan with WeChat">打开微信扫一扫</div>
+        <div class="pay-hint" data-zh="打开微信扫一扫" data-en="Scan with WeChat" data-ja="WeChatでスキャン" data-ko="WeChat으로 스캔">打开微信扫一扫</div>
       </div>
       <!-- Alipay -->
       <div class="pay-card alipay">
         <div class="pay-icon alipay">
           <svg viewBox="0 0 1024 1024" fill="#1677ff"><path d="M1024.0512 701.0304V196.864A196.9664 196.9664 0 0 0 827.136 0H196.864A196.9664 196.9664 0 0 0 0 196.864v630.272A196.9152 196.9152 0 0 0 196.864 1024h630.272a197.12 197.12 0 0 0 193.8432-162.0992c-52.224-22.6304-278.528-120.32-396.4416-176.64-89.7024 108.6976-183.7056 173.9264-325.3248 173.9264s-236.1856-87.2448-224.8192-194.048c7.4752-70.0416 55.552-184.576 264.2944-164.9664 110.08 10.3424 160.4096 30.8736 250.1632 60.5184 23.1936-42.5984 42.496-89.4464 57.1392-139.264H248.064v-39.424h196.9152V311.1424H204.8V267.776h240.128V165.632s2.1504-15.9744 19.8144-15.9744h98.4576V267.776h256v43.4176h-256V381.952h208.8448a805.9904 805.9904 0 0 1-84.8384 212.6848c60.672 22.016 336.7936 106.3936 336.7936 106.3936zM283.5456 791.6032c-149.6576 0-173.312-94.464-165.376-133.9392 7.8336-39.3216 51.2-90.624 134.4-90.624 95.5904 0 181.248 24.4736 284.0576 74.5472-72.192 94.0032-160.9216 150.016-253.0816 150.016z"/></svg>
         </div>
-        <div class="pay-name" data-zh="支付宝" data-en="Alipay">支付宝</div>
+        <div class="pay-name" data-zh="支付宝" data-en="Alipay" data-ja="Alipay" data-ko="Alipay">支付宝</div>
         <img src="images/alipay.jpeg" alt="Alipay QR">
-        <div class="pay-hint" data-zh="打开支付宝扫一扫" data-en="Scan with Alipay">打开支付宝扫一扫</div>
+        <div class="pay-hint" data-zh="打开支付宝扫一扫" data-en="Scan with Alipay" data-ja="Alipayでスキャン" data-ko="Alipay로 스캔">打开支付宝扫一扫</div>
       </div>
       <!-- PayPal -->
       <div class="pay-card paypal">
@@ -740,17 +942,17 @@ body::before {
         <div class="pay-name">PayPal</div>
         <div class="paypal-visual">
           <svg viewBox="0 0 1024 1024" class="paypal-logo-lg"><path d="M841.813333 253.269333c-0.938667 5.888-2.005333 11.946667-3.2 18.176-40.576 209.749333-179.498667 282.24-356.864 282.24H391.424a43.946667 43.946667 0 0 0-43.349333 37.376l-46.250667 295.210667-13.098667 83.626667a23.338667 23.338667 0 0 0 22.784 26.88h160.213334a38.613333 38.613333 0 0 0 38.058666-32.682667l1.578667-8.192 30.165333-192.64 1.962667-10.538667a38.613333 38.613333 0 0 1 38.058667-32.768h23.936c155.221333 0 276.736-63.445333 312.234666-246.954666 14.848-76.672 7.168-140.714667-32.085333-185.728a153.301333 153.301333 0 0 0-43.861333-34.005334z" fill="#179BD7"/><path d="M799.317333 236.202667a318.464 318.464 0 0 0-39.509333-8.789334 498.474667 498.474667 0 0 0-79.616-5.845333h-241.28a38.528 38.528 0 0 0-38.058667 32.768L349.525333 581.546667l-1.450666 9.514666a43.946667 43.946667 0 0 1 43.349333-37.376h90.325333c177.365333 0 316.288-72.533333 356.864-282.24 1.237333-6.229333 2.261333-12.288 3.157334-18.176a215.68 215.68 0 0 0-42.453334-17.066666z" fill="#222D65"/><path d="M400.853333 254.293333a38.442667 38.442667 0 0 1 38.058667-32.725333h241.28c28.586667 0 55.296 1.877333 79.616 5.845333 16.512 2.602667 32.768 6.528 48.64 11.690667 11.946667 3.968 23.082667 8.704 33.365333 14.165333 12.074667-77.525333-0.085333-130.304-41.770666-178.133333C754.133333 22.528 671.274667 0 565.248 0H257.365333c-21.632 0-40.106667 15.872-43.477333 37.418667L85.674667 855.466667a26.752 26.752 0 0 0 5.973333 21.461333c5.034667 5.888 12.373333 9.301333 20.096 9.344h190.08l47.701333-304.725333 51.328-327.253334z" fill="#253B80"/></svg>
-          <div class="paypal-tagline" data-zh="安全便捷的国际支付" data-en="Safe & easy international payments">安全便捷的国际支付</div>
+          <div class="paypal-tagline" data-zh="安全便捷的国际支付" data-en="Safe & easy international payments" data-ja="安全で便利な国際決済" data-ko="안전하고 편리한 국제 결제">安全便捷的国际支付</div>
         </div>
         <a class="paypal-btn" href="https://paypal.me/lifedever" target="_blank">
           <svg viewBox="0 0 1024 1024" style="width:18px;height:18px"><path d="M841.813333 253.269333c-0.938667 5.888-2.005333 11.946667-3.2 18.176-40.576 209.749333-179.498667 282.24-356.864 282.24H391.424a43.946667 43.946667 0 0 0-43.349333 37.376l-46.250667 295.210667-13.098667 83.626667a23.338667 23.338667 0 0 0 22.784 26.88h160.213334a38.613333 38.613333 0 0 0 38.058666-32.682667l1.578667-8.192 30.165333-192.64 1.962667-10.538667a38.613333 38.613333 0 0 1 38.058667-32.768h23.936c155.221333 0 276.736-63.445333 312.234666-246.954666 14.848-76.672 7.168-140.714667-32.085333-185.728a153.301333 153.301333 0 0 0-43.861333-34.005334z" fill="white"/><path d="M799.317333 236.202667a318.464 318.464 0 0 0-39.509333-8.789334 498.474667 498.474667 0 0 0-79.616-5.845333h-241.28a38.528 38.528 0 0 0-38.058667 32.768L349.525333 581.546667l-1.450666 9.514666a43.946667 43.946667 0 0 1 43.349333-37.376h90.325333c177.365333 0 316.288-72.533333 356.864-282.24 1.237333-6.229333 2.261333-12.288 3.157334-18.176a215.68 215.68 0 0 0-42.453334-17.066666z" fill="rgba(255,255,255,0.7)"/><path d="M400.853333 254.293333a38.442667 38.442667 0 0 1 38.058667-32.725333h241.28c28.586667 0 55.296 1.877333 79.616 5.845333 16.512 2.602667 32.768 6.528 48.64 11.690667 11.946667 3.968 23.082667 8.704 33.365333 14.165333 12.074667-77.525333-0.085333-130.304-41.770666-178.133333C754.133333 22.528 671.274667 0 565.248 0H257.365333c-21.632 0-40.106667 15.872-43.477333 37.418667L85.674667 855.466667a26.752 26.752 0 0 0 5.973333 21.461333c5.034667 5.888 12.373333 9.301333 20.096 9.344h190.08l47.701333-304.725333 51.328-327.253334z" fill="rgba(255,255,255,0.85)"/></svg>
-          <span data-zh="通过 PayPal 赞助" data-en="Sponsor via PayPal">通过 PayPal 赞助</span>
+          <span data-zh="通过 PayPal 赞助" data-en="Sponsor via PayPal" data-ja="PayPal で支援する" data-ko="PayPal로 후원하기">通过 PayPal 赞助</span>
         </a>
-        <div class="pay-hint" data-zh="支持 Visa / MasterCard / 银联" data-en="Visa / MasterCard / UnionPay supported">支持 Visa / MasterCard / 银联</div>
+        <div class="pay-hint" data-zh="支持 Visa / MasterCard / 银联" data-en="Visa / MasterCard / UnionPay supported" data-ja="Visa / MasterCard / 銀聯対応" data-ko="Visa / MasterCard / UnionPay 지원">支持 Visa / MasterCard / 银联</div>
       </div>
     </div>
     <div class="sponsor-note">
-      <p data-zh="赞助后欢迎到 <a href='https://github.com/lifedever/sponsor/issues/1' target='_blank'>留言板</a> 留下你的足迹 ✨" data-en="After sponsoring, feel free to leave your mark on the <a href='https://github.com/lifedever/sponsor/issues/1' target='_blank'>Sponsor Wall</a> ✨">赞助后欢迎到 <a href="https://github.com/lifedever/sponsor/issues/1" target="_blank">留言板</a> 留下你的足迹 ✨</p>
+      <p data-zh="赞助后欢迎到 <a href='https://github.com/lifedever/sponsor/issues/1' target='_blank'>留言板</a> 留下你的足迹 ✨" data-en="After sponsoring, feel free to leave your mark on the <a href='https://github.com/lifedever/sponsor/issues/1' target='_blank'>Sponsor Wall</a> ✨" data-ja="スポンサー後、ぜひ <a href='https://github.com/lifedever/sponsor/issues/1' target='_blank'>掲示板</a> に足跡を残してください ✨" data-ko="후원 후 <a href='https://github.com/lifedever/sponsor/issues/1' target='_blank'>방명록</a>에 흔적을 남겨주세요 ✨">赞助后欢迎到 <a href="https://github.com/lifedever/sponsor/issues/1" target="_blank">留言板</a> 留下你的足迹 ✨</p>
     </div>
   </section>
 
@@ -759,8 +961,7 @@ body::before {
   <!-- SPONSORS WALL -->
   <section class="sponsors-wall">
     <div class="sec-head">
-      <span class="sec-label" data-zh="赞助者荣誉墙" data-en="Sponsors Honor Wall">赞助者荣誉墙</span>
-      <span class="sec-line"></span>
+      <span class="sec-label" data-zh="赞助者荣誉墙" data-en="Sponsors Honor Wall" data-ja="スポンサー名誉壁" data-ko="후원자 명예의 벽">赞助者荣誉墙</span>
     </div>
     <div class="sponsors-list">
       <div class="sponsor-person">
@@ -780,10 +981,14 @@ body::before {
         <span class="sponsor-person-name">冰点</span>
       </div>
     </div>
-    <p class="sponsors-note" data-zh="排名不分先后 · 感谢每一位支持者" data-en="Listed in no particular order · Thank you all">排名不分先后 · 感谢每一位支持者</p>
+    <p class="sponsors-note" data-zh="排名不分先后 · 感谢每一位支持者" data-en="Listed in no particular order · Thank you all" data-ja="順不同 · すべての支援者に感謝" data-ko="순서 무관 · 모든 후원자에게 감사">排名不分先后 · 感谢每一位支持者</p>
   </section>
 
   <footer class="footer">
+    <div class="footer-links">
+      <a href="https://github.com/lifedever" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      <a href="mailto:lifedever@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+    </div>
     <p>&copy; 2026 Lifedever &middot; <a href="https://github.com/lifedever" target="_blank">github.com/lifedever</a></p>
   </footer>
 
@@ -791,15 +996,35 @@ body::before {
 </div>
 
 <script>
+// Theme toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.classList.contains('dark') ||
+    (!html.classList.contains('light') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  html.classList.remove('dark', 'light');
+  html.classList.add(isDark ? 'light' : 'dark');
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// Apply saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.classList.add(savedTheme);
+}
+
 function switchLang(lang) {
-  document.querySelectorAll('.lang-switch button').forEach(b =>
-    b.classList.toggle('active', b.textContent.trim() === (lang === 'zh' ? '中文' : 'EN'))
+  const langLabels = { zh: '中文', en: 'English', ja: '日本語', ko: '한국어' };
+  const langCodes = { zh: 'zh-CN', en: 'en', ja: 'ja', ko: 'ko' };
+  document.querySelectorAll('.lang-menu button').forEach(b =>
+    b.classList.toggle('active', b.textContent.trim() === langLabels[lang])
   );
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  document.querySelectorAll('[data-zh][data-en]').forEach(el =>
-    el.innerHTML = el.getAttribute('data-' + lang)
-  );
+  document.documentElement.lang = langCodes[lang] || lang;
+  document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val !== null) el.innerHTML = val;
+  });
   localStorage.setItem('lang', lang);
+  document.getElementById('langDropdown').classList.remove('open');
 }
 
 const saved = localStorage.getItem('lang');
@@ -807,11 +1032,20 @@ if (saved) {
   switchLang(saved);
 } else {
   const browserLang = navigator.language || navigator.userLanguage || '';
-  switchLang(browserLang.startsWith('zh') ? 'zh' : 'en');
+  if (browserLang.startsWith('zh')) switchLang('zh');
+  else if (browserLang.startsWith('ja')) switchLang('ja');
+  else if (browserLang.startsWith('ko')) switchLang('ko');
+  else switchLang('en');
 }
 
+// Close lang dropdown on outside click
+document.addEventListener('click', e => {
+  const dd = document.getElementById('langDropdown');
+  if (!dd.contains(e.target)) dd.classList.remove('open');
+});
+
 // Live star counts
-const repos = ['health-tick-release','smart-cleaner','CronPilot','TaskTick','ai-commit'];
+const repos = ['TaskTick','health-tick-release','smart-cleaner','CronPilot','ai-commit'];
 const items = document.querySelectorAll('.proj-item');
 repos.forEach((r, i) => {
   fetch('https://api.github.com/repos/lifedever/' + r)
