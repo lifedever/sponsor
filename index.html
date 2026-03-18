@@ -825,6 +825,7 @@ html.light .theme-icon-sun { display: block; }
 .proj-item:nth-child(3) { animation-delay: 0.45s; }
 .proj-item:nth-child(4) { animation-delay: 0.5s; }
 .proj-item:nth-child(5) { animation-delay: 0.55s; }
+.proj-item:nth-child(6) { animation-delay: 0.6s; }
 
 .pay-card { animation: rise 0.6s ease both; }
 .pay-card:nth-child(1) { animation-delay: 0.55s; }
@@ -901,6 +902,16 @@ html.light .theme-icon-sun { display: block; }
             <span class="proj-star">&#9733; 14</span>
           </div>
           <div class="proj-desc" data-zh="指定目录垃圾清理，安全移至回收站" data-en="Directory cleanup, safely moves junk to Trash" data-ja="指定ディレクトリのクリーンアップ、安全にゴミ箱へ" data-ko="지정 디렉토리 정리, 안전하게 휴지통으로">指定目录垃圾清理，安全移至回收站</div>
+        </div>
+      </a>
+      <a class="proj-item" href="https://github.com/lifedever/claude-rules" target="_blank">
+        <span class="proj-emoji">📐</span>
+        <div class="proj-body">
+          <div class="proj-top">
+            <span class="proj-name">claude-rules</span>
+            <span class="proj-star">&#9733; 0</span>
+          </div>
+          <div class="proj-desc" data-zh="AI 编码助手编码规范模板库，支持自动检测技术栈" data-en="Coding standards for AI coding assistants with auto tech stack detection" data-ja="AI コーディングアシスタント用コーディング規約テンプレート" data-ko="AI 코딩 어시스턴트용 코딩 표준 템플릿 라이브러리">AI 编码助手编码规范模板库，支持自动检测技术栈</div>
         </div>
       </a>
       <a class="proj-item" href="https://github.com/lifedever/CronPilot" target="_blank">
@@ -1071,7 +1082,7 @@ document.addEventListener('click', e => {
 });
 
 // Live star counts
-const repos = ['TaskTick','health-tick-release','smart-cleaner','CronPilot','ai-commit'];
+const repos = ['TaskTick','health-tick-release','smart-cleaner','claude-rules','CronPilot','ai-commit'];
 const items = document.querySelectorAll('.proj-item');
 repos.forEach((r, i) => {
   fetch('https://api.github.com/repos/lifedever/' + r)
