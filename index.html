@@ -743,6 +743,166 @@ html.light .theme-icon-sun { display: block; }
   line-height: 1.5;
 }
 
+.proj-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.proj-badge-free {
+  color: #07c160;
+  background: rgba(7, 193, 96, 0.1);
+}
+
+.proj-badge-beta {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.proj-badge-pro {
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.proj-badge-opensource {
+  color: var(--text-3);
+  background: var(--bg-3);
+}
+
+.proj-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.proj-item:hover .proj-icon { transform: scale(1.15); }
+
+.proj-platform {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+/* ─── FEATURED APP CARD ─── */
+.app-featured {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 32px 36px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  animation: rise 0.5s ease 0.35s both;
+}
+
+.app-featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.app-featured:hover {
+  border-color: var(--gold-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.app-featured:hover::before { opacity: 1; }
+
+.app-featured-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.app-featured-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.app-featured:hover .app-featured-icon { transform: scale(1.08); }
+
+.app-featured-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.app-featured-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-featured-name {
+  font-size: 18px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.app-featured:hover .app-featured-name { color: var(--gold); }
+
+.app-featured-right {
+  flex: 1;
+  min-width: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 40px;
+}
+
+.app-featured-desc {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.app-featured-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.app-featured-tags span {
+  font-size: 11px;
+  color: var(--text-3);
+  background: var(--bg-3);
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+@media (max-width: 680px) {
+  .app-featured {
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 20px;
+    align-items: flex-start;
+  }
+  .app-featured-right {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+}
+
 /* ─── FOOTER ─── */
 .footer {
   padding: 48px 0 36px;
@@ -877,8 +1037,37 @@ html.light .theme-icon-sun { display: block; }
     </nav>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- APPS -->
   <section class="projects-sec" id="projects">
+    <div class="sec-head">
+      <span class="sec-label" data-zh="独立应用" data-en="Indie Apps" data-ja="インディーアプリ" data-ko="인디 앱">独立应用</span>
+    </div>
+    <a class="app-featured" href="https://www.lifedever.com/PasteMemo/" target="_blank">
+      <div class="app-featured-left">
+        <img class="app-featured-icon" src="https://www.lifedever.com/PasteMemo/logo.svg" alt="PasteMemo">
+        <div class="app-featured-info">
+          <div class="app-featured-top">
+            <span class="app-featured-name">PasteMemo</span>
+            <span class="proj-badge proj-badge-beta" data-zh="内测中" data-en="Beta" data-ja="ベータ" data-ko="베타">内测中</span>
+          </div>
+          <div class="proj-platform">macOS · Apple Silicon & Intel</div>
+        </div>
+      </div>
+      <div class="app-featured-right">
+        <p class="app-featured-desc" data-zh="macOS 原生剪贴板管理器，常驻菜单栏。自动记录你复制的一切，即搜即用，随处粘贴。" data-en="Native macOS clipboard manager that lives in your menu bar. Records everything you copy, instant search, paste anywhere." data-ja="メニューバーに常駐する macOS ネイティブクリップボードマネージャー。コピーしたすべてを自動記録、即検索、どこでもペースト。" data-ko="메뉴바에 상주하는 macOS 네이티브 클립보드 관리자. 복사한 모든 것을 자동 기록, 즉시 검색, 어디서나 붙여넣기.">macOS 原生剪贴板管理器，常驻菜单栏。自动记录你复制的一切，即搜即用，随处粘贴。</p>
+        <div class="app-featured-tags">
+          <span data-zh="智能识别" data-en="Smart Detection" data-ja="スマート認識" data-ko="스마트 감지">智能识别</span>
+          <span data-zh="全局快捷键" data-en="Global Hotkey" data-ja="グローバルショートカット" data-ko="글로벌 단축키">全局快捷键</span>
+          <span data-zh="完全离线" data-en="Fully Offline" data-ja="完全オフライン" data-ko="완전 오프라인">完全离线</span>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <div class="divider"><span class="divider-dot"></span></div>
+
+  <!-- OPEN SOURCE -->
+  <section class="projects-sec">
     <div class="sec-head">
       <span class="sec-label" data-zh="开源项目" data-en="Open Source" data-ja="オープンソース" data-ko="오픈소스">开源项目</span>
     </div>
