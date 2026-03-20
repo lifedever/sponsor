@@ -1060,11 +1060,18 @@ function toggleTheme() {
   localStorage.setItem('theme', isDark ? 'light' : 'dark');
 }
 
-// Apply saved theme
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  document.documentElement.classList.add(savedTheme);
+// Always follow system theme on load (ignore saved preference)
+function applySystemTheme() {
+  const html = document.documentElement;
+  html.classList.remove('dark', 'light');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  html.classList.add(systemDark ? 'dark' : 'light');
+  localStorage.setItem('theme', systemDark ? 'dark' : 'light');
 }
+applySystemTheme();
+
+// Listen for system theme changes in real time
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySystemTheme);
 
 function switchLang(lang) {
   const langLabels = { zh: '中文', en: 'English', ja: '日本語', ko: '한국어' };
