@@ -493,6 +493,7 @@ html.light .theme-icon-sun { display: block; }
 .sponsor-person:nth-child(4) { animation-delay: 0.6s; }
 .sponsor-person:nth-child(5) { animation-delay: 0.7s; }
 .sponsor-person:nth-child(6) { animation-delay: 0.8s; }
+.sponsor-person:nth-child(7) { animation-delay: 0.9s; }
 
 .sponsor-avatar {
   width: 68px;
@@ -508,6 +509,13 @@ html.light .theme-icon-sun { display: block; }
   color: var(--gold);
   position: relative;
   transition: all 0.3s;
+  overflow: hidden;
+}
+
+.sponsor-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .sponsor-avatar::after {
@@ -1018,6 +1026,10 @@ html.light .theme-icon-sun { display: block; }
       <div class="sponsor-person">
         <div class="sponsor-avatar">杰</div>
         <span class="sponsor-person-name">**杰</span>
+      </div>
+      <div class="sponsor-person">
+        <div class="sponsor-avatar"><img src="https://cdn.jsdelivr.net/gh/lifedever/images@master/it/2026/03/20260320-224332.jpg" alt="等到放晴的那天"></div>
+        <span class="sponsor-person-name">等到放晴的那天</span>
       </div>
     </div>
     <p class="sponsors-note" data-zh="排名不分先后 · 感谢每一位支持者" data-en="Listed in no particular order · Thank you all" data-ja="順不同 · すべての支援者に感謝" data-ko="순서 무관 · 모든 후원자에게 감사">排名不分先后 · 感谢每一位支持者</p>
