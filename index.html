@@ -1078,7 +1078,7 @@ html.light .theme-icon-sun { display: block; }
         <div class="proj-body">
           <div class="proj-top">
             <span class="proj-name">claude-rules</span>
-            <span class="proj-star">&#9733; 0</span>
+            <span class="proj-star">&#9733; 56</span>
           </div>
           <div class="proj-desc" data-zh="AI 编码助手编码规范模板库，支持自动检测技术栈" data-en="Coding standards for AI coding assistants with auto tech stack detection" data-ja="AI コーディングアシスタント用コーディング規約テンプレート" data-ko="AI 코딩 어시스턴트용 코딩 표준 템플릿 라이브러리">AI 编码助手编码规范模板库，支持自动检测技术栈</div>
         </div>
@@ -1088,7 +1088,7 @@ html.light .theme-icon-sun { display: block; }
         <div class="proj-body">
           <div class="proj-top">
             <span class="proj-name">TaskTick</span>
-            <span class="proj-star">&#9733; 0</span>
+            <span class="proj-star">&#9733; 131</span>
           </div>
           <div class="proj-desc" data-zh="macOS 原生定时任务管理应用" data-en="Native macOS scheduled task manager" data-ja="macOS ネイティブ定時タスク管理アプリ" data-ko="macOS 네이티브 예약 작업 관리 앱">macOS 原生定时任务管理应用</div>
         </div>
@@ -1098,7 +1098,7 @@ html.light .theme-icon-sun { display: block; }
         <div class="proj-body">
           <div class="proj-top">
             <span class="proj-name">HealthTick</span>
-            <span class="proj-star">&#9733; 10</span>
+            <span class="proj-star">&#9733; 93</span>
           </div>
           <div class="proj-desc" data-zh="macOS 久坐提醒 · 强制休息 · 习惯养成" data-en="macOS sedentary reminder · forced breaks · habit building" data-ja="macOS 座りすぎリマインダー · 強制休憩 · 習慣づくり" data-ko="macOS 오래 앉기 알림 · 강제 휴식 · 습관 형성">macOS 久坐提醒 · 强制休息 · 习惯养成</div>
         </div>
@@ -1108,7 +1108,7 @@ html.light .theme-icon-sun { display: block; }
         <div class="proj-body">
           <div class="proj-top">
             <span class="proj-name">Smart Cleaner</span>
-            <span class="proj-star">&#9733; 14</span>
+            <span class="proj-star">&#9733; 15</span>
           </div>
           <div class="proj-desc" data-zh="指定目录垃圾清理，安全移至回收站" data-en="Directory cleanup, safely moves junk to Trash" data-ja="指定ディレクトリのクリーンアップ、安全にゴミ箱へ" data-ko="지정 디렉토리 정리, 안전하게 휴지통으로">指定目录垃圾清理，安全移至回收站</div>
         </div>
@@ -1118,7 +1118,7 @@ html.light .theme-icon-sun { display: block; }
         <div class="proj-body">
           <div class="proj-top">
             <span class="proj-name">CronPilot</span>
-            <span class="proj-star">&#9733; 6</span>
+            <span class="proj-star">&#9733; 8</span>
           </div>
           <div class="proj-desc" data-zh="本地 Crontab 可视化管理桌面应用" data-en="Visual crontab management desktop app" data-ja="ローカル Crontab ビジュアル管理アプリ" data-ko="로컬 Crontab 시각적 관리 앱">本地 Crontab 可视化管理桌面应用</div>
         </div>
@@ -1295,15 +1295,27 @@ document.addEventListener('click', e => {
   if (!dd.contains(e.target)) dd.classList.remove('open');
 });
 
-// Live star counts
+// Live star counts with localStorage cache
 const repos = ['claude-rules','TaskTick','health-tick-release','smart-cleaner','CronPilot','ai-commit'];
-const items = document.querySelectorAll('.proj-item');
+const items = document.querySelectorAll('.projects-sec:last-of-type .proj-item');
+const starCache = JSON.parse(localStorage.getItem('starCache') || '{}');
+
+// Apply cached values first
+repos.forEach((r, i) => {
+  if (starCache[r] !== undefined && items[i])
+    items[i].querySelector('.proj-star').innerHTML = '&#9733; ' + starCache[r];
+});
+
+// Then fetch fresh data
 repos.forEach((r, i) => {
   fetch('https://api.github.com/repos/lifedever/' + r)
     .then(res => res.json())
     .then(d => {
-      if (d.stargazers_count !== undefined && items[i])
+      if (d.stargazers_count !== undefined && items[i]) {
         items[i].querySelector('.proj-star').innerHTML = '&#9733; ' + d.stargazers_count;
+        starCache[r] = d.stargazers_count;
+        localStorage.setItem('starCache', JSON.stringify(starCache));
+      }
     }).catch(() => {});
 });
 </script>
