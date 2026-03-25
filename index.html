@@ -383,6 +383,8 @@ html.light .theme-icon-sun { display: block; }
   border-radius: 16px;
   opacity: 0;
   transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .pay-card.wechat::before { background: var(--wechat); }
@@ -430,6 +432,8 @@ html.light .theme-icon-sun { display: block; }
   max-width: 180px;
   border-radius: 8px;
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .pay-hint {
