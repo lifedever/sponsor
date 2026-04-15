@@ -545,6 +545,39 @@ html.light .theme-icon-sun { display: block; }
   color: var(--gold);
 }
 
+.sponsor-avatar.anonymous {
+  background: linear-gradient(135deg, rgba(226, 185, 111, 0.08), rgba(226, 185, 111, 0.2));
+  border-style: dashed;
+  overflow: visible;
+}
+
+.sponsor-avatar.anonymous svg {
+  width: 42px;
+  height: 42px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.4;
+}
+
+.sponsor-avatar .count-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--gold);
+  color: #1a1410;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px var(--gold-glow);
+  z-index: 2;
+}
+
 .sponsors-note {
   text-align: center;
   margin-top: 24px;
@@ -1294,6 +1327,20 @@ html.light .theme-icon-sun { display: block; }
       <div class="sponsor-person">
         <div class="sponsor-avatar"><img src="https://cdn.jsdelivr.net/gh/lifedever/images@master/it/2026/04/20260415-104923.jpg" alt="Derek"></div>
         <span class="sponsor-person-name">Derek</span>
+      </div>
+      <div class="sponsor-person">
+        <div class="sponsor-avatar anonymous">
+          <span class="count-badge">×3</span>
+          <svg viewBox="0 0 48 36" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5" opacity="0.5"/>
+            <path d="M4 28c0-4.5 3.5-8 8-8s8 3.5 8 8" opacity="0.5"/>
+            <circle cx="36" cy="12" r="5" opacity="0.5"/>
+            <path d="M28 28c0-4.5 3.5-8 8-8s8 3.5 8 8" opacity="0.5"/>
+            <circle cx="24" cy="10" r="6"/>
+            <path d="M14 30c0-5.5 4.5-10 10-10s10 4.5 10 10"/>
+          </svg>
+        </div>
+        <span class="sponsor-person-name" data-zh="匿名英雄" data-en="Anonymous Heroes" data-ja="匿名の英雄" data-ko="익명의 영웅">匿名英雄</span>
       </div>
     </div>
     <p class="sponsors-note" data-zh="排名不分先后 · 感谢每一位支持者" data-en="Listed in no particular order · Thank you all" data-ja="順不同 · すべての支援者に感謝" data-ko="순서 무관 · 모든 후원자에게 감사">排名不分先后 · 感谢每一位支持者</p>
