@@ -996,6 +996,383 @@ html.light .theme-icon-sun { display: block; }
 
 .footer a:hover { color: var(--gold); }
 
+/* ─── PREMIUM SERVICES ─── */
+.premium-sec {
+  padding: 56px 0;
+}
+
+.premium-sec .sec-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.premium-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.premium-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px 30px 28px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: rise 0.6s ease 0.15s both;
+}
+
+.premium-card .copy-btn { margin-top: auto; }
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 100% 0%, var(--gold-glow) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, var(--gold-dim) 0%, transparent 60%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.premium-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-glow);
+  box-shadow: 0 12px 40px var(--shadow);
+}
+
+.premium-card > * { position: relative; }
+
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  align-self: flex-start;
+}
+
+.premium-price {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 18px var(--gold-glow);
+}
+
+.premium-price .currency {
+  font-size: 16px;
+  font-weight: 500;
+  vertical-align: 4px;
+  margin-right: 1px;
+  opacity: 0.85;
+}
+
+.premium-price .amount {
+  font-size: 34px;
+}
+
+.premium-price .unit {
+  font-family: 'Outfit', 'Noto Sans SC', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-3);
+  letter-spacing: 0.5px;
+  margin-left: 4px;
+  vertical-align: 6px;
+}
+
+.premium-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.4); }
+}
+
+.premium-title {
+  font-family: 'Cormorant Garamond', 'Noto Sans SC', serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.premium-subtitle {
+  font-size: 14px;
+  color: var(--text-2);
+  margin-bottom: 24px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.premium-features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+  padding: 20px 22px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.premium-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.6;
+}
+
+.premium-feature-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.premium-feature-icon svg {
+  width: 11px;
+  height: 11px;
+  stroke: var(--gold);
+  stroke-width: 3;
+  fill: none;
+}
+
+.premium-feature-body { flex: 1; min-width: 0; }
+
+.premium-feature-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.premium-feature-detail {
+  color: var(--text-3);
+  font-size: 13px;
+  margin-top: 2px;
+  line-height: 1.55;
+}
+
+.premium-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  margin-bottom: 18px;
+  background: rgba(226, 185, 111, 0.08);
+  border: 1px solid var(--gold-glow);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--gold);
+  line-height: 1.55;
+}
+
+.premium-warning svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 3px;
+}
+
+.premium-warning strong {
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.premium-details {
+  margin-bottom: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.premium-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  list-style: none;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.premium-details > summary::-webkit-details-marker { display: none; }
+.premium-details > summary::marker { content: ''; }
+
+.premium-details > summary::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--text-3);
+  border-bottom: 1.5px solid var(--text-3);
+  transform: rotate(-45deg);
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+
+.premium-details[open] > summary::before { transform: rotate(45deg); }
+.premium-details > summary:hover { color: var(--gold); }
+
+.premium-details-body {
+  padding: 2px 16px 16px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  line-height: 1.75;
+}
+
+.premium-details-body h4 {
+  font-size: 11.5px;
+  color: var(--text-2);
+  margin: 10px 0 4px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.premium-details-body h4:first-child { margin-top: 4px; }
+
+.premium-details-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.premium-details-body li {
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 3px;
+}
+
+.premium-details-body li::before {
+  content: '·';
+  position: absolute;
+  left: 3px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.copy-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--gold), #d4a055);
+  color: #1a1410;
+  font: 500 14px/1 'Outfit', 'Noto Sans SC', sans-serif;
+  padding: 15px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.2px;
+}
+
+.copy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--gold-glow);
+  filter: brightness(1.05);
+}
+
+.copy-btn:active { transform: translateY(0); }
+
+.copy-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.copy-btn.copied {
+  background: linear-gradient(135deg, #07c160, #05a050);
+  color: #fff;
+}
+
+.copy-btn .icon-copied { display: none; }
+.copy-btn.copied .icon-copy { display: none; }
+.copy-btn.copied .icon-copied { display: inline-block; }
+
+.premium-hint {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 14px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-3);
+  border: 1px solid var(--gold-glow);
+  color: var(--gold);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font: 500 13px/1 'Outfit', 'Noto Sans SC', sans-serif;
+  box-shadow: 0 10px 32px var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast svg { width: 16px; height: 16px; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 680px) {
   .hero { padding: 70px 0 40px; }
@@ -1006,6 +1383,9 @@ html.light .theme-icon-sun { display: block; }
   .proj-grid { grid-template-columns: 1fr 1fr; }
   .divider { padding: 0 20px; }
   .top-controls { top: 12px; right: 12px; }
+  .premium-card { padding: 26px 22px; }
+  .premium-title { font-size: 22px; }
+  .premium-features { padding: 16px 18px; }
 }
 
 /* ─── ANIMATIONS ─── */
@@ -1181,6 +1561,110 @@ html.light .theme-icon-sun { display: block; }
 
   <div class="divider"><span class="divider-dot"></span></div>
 
+  <!-- PREMIUM SERVICES -->
+  <section class="premium-sec" id="premium">
+    <div class="sec-head">
+      <span class="sec-label" data-zh="增值服务" data-en="Premium Services" data-ja="プレミアムサービス" data-ko="프리미엄 서비스">增值服务</span>
+    </div>
+    <div class="premium-grid">
+      <article class="premium-card">
+        <div class="premium-price"><span class="currency">¥</span><span class="amount">39</span><span class="unit" data-zh="起" data-en="from" data-ja="〜" data-ko="부터">起</span></div>
+        <div class="premium-badge">
+          <span class="premium-badge-dot"></span>
+          <span data-zh="上新 · 定制脚本" data-en="NEW · Custom Scripts" data-ja="新着 · カスタムスクリプト" data-ko="NEW · 맞춤 스크립트">上新 · 定制脚本</span>
+        </div>
+        <h3 class="premium-title" data-zh="PasteMemo 快捷指令 &amp; TaskTick Shell 脚本 定制" data-en="PasteMemo Shortcuts &amp; TaskTick Shell Script Customization" data-ja="PasteMemo ショートカット &amp; TaskTick Shell スクリプト カスタム" data-ko="PasteMemo 단축어 &amp; TaskTick Shell 스크립트 맞춤 제작">PasteMemo 快捷指令 &amp; TaskTick Shell 脚本 定制</h3>
+        <p class="premium-subtitle" data-zh="作为两款 App 的作者，我最懂它们——现在可以付费定制专属脚本了" data-en="As the author of both apps, I know them best — order your own custom scripts now" data-ja="両アプリの作者として、最も熟知しています——専用スクリプトのカスタム制作を承ります" data-ko="두 앱의 개발자로서 가장 잘 압니다 — 이제 전용 스크립트를 주문 제작할 수 있습니다">作为两款 App 的作者，我最懂它们——现在可以付费定制专属脚本了</p>
+
+        <div class="premium-features">
+          <div class="premium-feature">
+            <span class="premium-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="premium-feature-body">
+              <div class="premium-feature-label" data-zh="PasteMemo 快捷指令" data-en="PasteMemo Shortcuts" data-ja="PasteMemo ショートカット" data-ko="PasteMemo 단축어">PasteMemo 快捷指令</div>
+              <div class="premium-feature-detail" data-zh="剪贴板联动 · 图片处理 · 文字排版 · Obsidian / Notion 等" data-en="Clipboard automation · Image processing · Text formatting · Obsidian / Notion" data-ja="クリップボード連携 · 画像処理 · テキスト整形 · Obsidian / Notion など" data-ko="클립보드 연동 · 이미지 처리 · 텍스트 정렬 · Obsidian / Notion 등">剪贴板联动 · 图片处理 · 文字排版 · Obsidian / Notion 等</div>
+            </div>
+          </div>
+          <div class="premium-feature">
+            <span class="premium-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="premium-feature-body">
+              <div class="premium-feature-label" data-zh="TaskTick 定时 Shell 脚本" data-en="TaskTick Scheduled Shell Scripts" data-ja="TaskTick 定時 Shell スクリプト" data-ko="TaskTick 예약 Shell 스크립트">TaskTick 定时 Shell 脚本</div>
+              <div class="premium-feature-detail" data-zh="自动备份 · 定时清理 · 状态监控 等" data-en="Auto backup · Scheduled cleanup · Status monitoring" data-ja="自動バックアップ · 定期クリーンアップ · 状態監視 など" data-ko="자동 백업 · 예약 정리 · 상태 모니터링 등">自动备份 · 定时清理 · 状态监控 等</div>
+            </div>
+          </div>
+          <div class="premium-feature">
+            <span class="premium-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="premium-feature-body">
+              <div class="premium-feature-label" data-zh="含 90 天免费维护" data-en="90-day free maintenance included" data-ja="90日間の無料メンテナンス込み" data-ko="90일 무료 유지보수 포함">含 90 天免费维护</div>
+              <div class="premium-feature-detail" data-zh="Bug 修复 · 系统 / 应用更新适配 · 使用咨询答疑" data-en="Bug fixes · OS / app compatibility · usage support" data-ja="バグ修正 · OS / アプリ更新対応 · 使い方のご相談" data-ko="버그 수정 · OS / 앱 업데이트 대응 · 사용 지원">Bug 修复 · 系统 / 应用更新适配 · 使用咨询答疑</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="copy-btn" type="button" onclick="copyXianyu(this)" data-code="【闲鱼】https://m.tb.cn/h.iIwXfg0?tk=zsdi57I3l6G CZ193 「我在闲鱼发布了【PasteMemo&amp;TaskTick脚本】」">
+          <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span data-zh="复制闲鱼口令 · 前往下单" data-en="Copy Xianyu Code · Place Order" data-ja="Xianyu コードをコピー · 注文へ" data-ko="Xianyu 코드 복사 · 주문하기">复制闲鱼口令 · 前往下单</span>
+        </button>
+        <p class="premium-hint" data-zh="复制后打开闲鱼 App，会自动识别口令并跳转到商品页" data-en="After copying, open the Xianyu app — it will auto-detect the code and open the listing" data-ja="コピー後に Xianyu アプリを開くと、コードが自動認識され商品ページへ遷移します" data-ko="복사 후 Xianyu 앱을 열면 코드를 자동 인식하여 상품 페이지로 이동합니다">复制后打开闲鱼 App，会自动识别口令并跳转到商品页</p>
+      </article>
+
+      <article class="premium-card">
+        <div class="premium-price"><span class="currency">¥</span><span class="amount">299</span><span class="unit" data-zh="起" data-en="from" data-ja="〜" data-ko="부터">起</span></div>
+        <div class="premium-badge">
+          <span class="premium-badge-dot"></span>
+          <span data-zh="上新 · App 定制" data-en="NEW · App Customization" data-ja="新着 · App カスタム" data-ko="NEW · 앱 맞춤 제작">上新 · App 定制</span>
+        </div>
+        <h3 class="premium-title" data-zh="App 量身定制开发 · 含 1 年维护" data-en="Custom App Development · 1-Year Maintenance" data-ja="App カスタム開発 · 1年メンテナンス込み" data-ko="맞춤 앱 개발 · 1년 유지보수 포함">App 量身定制开发 · 含 1 年维护</h3>
+        <p class="premium-subtitle" data-zh="基于主页（lifedever.com）现有 App，针对你的工作流或使用场景做功能定制，交付专属版本并提供 12 个月免费维护" data-en="Customize my existing apps from lifedever.com for your workflow, with a dedicated build and 12 months of free maintenance" data-ja="lifedever.com の既存 App をあなたのワークフロー向けにカスタム開発、専用ビルドと 12 か月の無料メンテナンス付き" data-ko="lifedever.com의 기존 앱을 당신의 워크플로에 맞게 맞춤 개발하여 전용 버전과 12개월 무료 유지보수를 제공합니다">基于主页（lifedever.com）现有 App，针对你的工作流或使用场景做功能定制，交付专属版本并提供 12 个月免费维护</p>
+
+        <div class="premium-features">
+          <div class="premium-feature">
+            <span class="premium-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="premium-feature-body">
+              <div class="premium-feature-label" data-zh="功能扩展 / 定制开发" data-en="Feature extension · Custom dev" data-ja="機能拡張 / カスタム開発" data-ko="기능 확장 / 맞춤 개발">功能扩展 / 定制开发</div>
+              <div class="premium-feature-detail" data-zh="基于现有 App 扩展专属功能，贴合你的工作习惯" data-en="Build extensions on top of existing apps that fit your habits" data-ja="既存 App を基に専用機能を拡張" data-ko="기존 앱 기반의 전용 기능 확장">基于现有 App 扩展专属功能，贴合你的工作习惯</div>
+            </div>
+          </div>
+          <div class="premium-feature">
+            <span class="premium-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="premium-feature-body">
+              <div class="premium-feature-label" data-zh="独立打包的定制版本" data-en="Dedicated packaged build" data-ja="独立パッケージのカスタム版" data-ko="독립 패키징된 맞춤 버전">独立打包的定制版本</div>
+              <div class="premium-feature-detail" data-zh="含专属配置 / 标识 · 持续同步主 App 更新" data-en="Your config · branding · synced with main app updates" data-ja="専用設定 / 識別 · メイン App の更新と同期" data-ko="전용 설정·식별 · 메인 앱 업데이트와 동기화">含专属配置 / 标识 · 持续同步主 App 更新</div>
+            </div>
+          </div>
+          <div class="premium-feature">
+            <span class="premium-feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="premium-feature-body">
+              <div class="premium-feature-label" data-zh="12 个月免费维护" data-en="12 months free maintenance" data-ja="12 か月の無料メンテナンス" data-ko="12개월 무료 유지보수">12 个月免费维护</div>
+              <div class="premium-feature-detail" data-zh="版本同步 · Bug 修复 · 系统升级兼容性（如 macOS 新版本）" data-en="Version sync · Bug fixes · OS compatibility (e.g. new macOS)" data-ja="バージョン同期 · バグ修正 · OS 互換性（macOS 新版など）" data-ko="버전 동기화 · 버그 수정 · OS 호환성 조정">版本同步 · Bug 修复 · 系统升级兼容性（如 macOS 新版本）</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="copy-btn" type="button" onclick="copyXianyu(this)" data-code="【闲鱼】https://m.tb.cn/h.irbHvE0?tk=qyWs57IFo4v MF168 「我在闲鱼发布了【个人App定制开发】」">
+          <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span data-zh="复制闲鱼口令 · 前往下单" data-en="Copy Xianyu Code · Place Order" data-ja="Xianyu コードをコピー · 注文へ" data-ko="Xianyu 코드 복사 · 주문하기">复制闲鱼口令 · 前往下单</span>
+        </button>
+        <p class="premium-hint" data-zh="复制后打开闲鱼 App，会自动识别口令并跳转到商品页" data-en="After copying, open the Xianyu app — it will auto-detect the code and open the listing" data-ja="コピー後に Xianyu アプリを開くと、コードが自動認識され商品ページへ遷移します" data-ko="복사 후 Xianyu 앱을 열면 코드를 자동 인식하여 상품 페이지로 이동합니다">复制后打开闲鱼 App，会自动识别口令并跳转到商品页</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="divider"><span class="divider-dot"></span></div>
+
   <!-- SUPPORT -->
   <section class="support" id="support">
     <div class="support-header">
@@ -1333,6 +1817,10 @@ html.light .theme-icon-sun { display: block; }
         <span class="sponsor-person-name">M*s</span>
       </div>
       <div class="sponsor-person">
+        <div class="sponsor-avatar"><img src="https://cdn.jsdelivr.net/gh/lifedever/images@master/it/2026/04/20260420-182035.jpg" alt="呃呃"></div>
+        <span class="sponsor-person-name">呃呃</span>
+      </div>
+      <div class="sponsor-person">
         <div class="sponsor-avatar anonymous">
           <span class="count-badge">×3</span>
           <svg viewBox="0 0 48 36" xmlns="http://www.w3.org/2000/svg">
@@ -1362,6 +1850,11 @@ html.light .theme-icon-sun { display: block; }
   </footer>
 
 </div>
+</div>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span data-zh="闲鱼口令已复制，打开闲鱼 App 查看" data-en="Xianyu code copied — open the Xianyu app to view" data-ja="Xianyu コードをコピーしました — アプリで開いてください" data-ko="Xianyu 코드가 복사되었습니다 — 앱에서 확인하세요">闲鱼口令已复制，打开闲鱼 App 查看</span>
 </div>
 
 <script>
@@ -1422,6 +1915,36 @@ document.addEventListener('click', e => {
   const dd = document.getElementById('langDropdown');
   if (!dd.contains(e.target)) dd.classList.remove('open');
 });
+
+// Copy Xianyu code
+function copyXianyu(btn) {
+  const code = btn.getAttribute('data-code');
+  const toast = document.getElementById('toast');
+  const done = () => {
+    btn.classList.add('copied');
+    toast.classList.add('show');
+    clearTimeout(btn._resetTimer);
+    btn._resetTimer = setTimeout(() => {
+      btn.classList.remove('copied');
+      toast.classList.remove('show');
+    }, 2200);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(code).then(done).catch(fallback);
+  } else {
+    fallback();
+  }
+  function fallback() {
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { /* silent */ }
+    document.body.removeChild(ta);
+  }
+}
 
 // Live star counts with localStorage cache
 const repos = ['claude-rules','TaskTick','health-tick-release','smart-cleaner','CronPilot','ai-commit','claudecode-debug-mode'];
