@@ -1322,6 +1322,16 @@ html.light .theme-icon-sun { display: block; }
       <span class="sec-label" data-zh="开源项目" data-en="Open Source" data-ja="オープンソース" data-ko="오픈소스">开源项目</span>
     </div>
     <div class="proj-grid">
+      <a class="proj-item" href="https://github.com/lifedever/NetTick" target="_blank">
+        <img class="proj-icon" src="https://cdn.jsdelivr.net/gh/lifedever/NetTick@main/assets/appicon.svg" alt="NetTick">
+        <div class="proj-body">
+          <div class="proj-top">
+            <span class="proj-name">NetTick</span>
+            <span class="proj-star">&#9733; 0</span>
+          </div>
+          <div class="proj-desc" data-zh="菜单栏实时显示上传、下载速率 · 按 App 记每天用了多少流量" data-en="Live upload and download rates in the menu bar · per-app traffic, day by day" data-ja="メニューバーでアップロード・ダウンロード速度をリアルタイム表示 · アプリごとの通信量を毎日記録" data-ko="메뉴 막대에 업로드·다운로드 속도 실시간 표시 · 앱별 데이터 사용량을 날마다 기록">菜单栏实时显示上传、下载速率 · 按 App 记每天用了多少流量</div>
+        </div>
+      </a>
       <a class="proj-item" href="https://github.com/lifedever/VoiceTap" target="_blank">
         <img class="proj-icon" src="https://cdn.jsdelivr.net/gh/lifedever/VoiceTap@main/Resources/logo.svg" alt="VoiceTap">
         <div class="proj-body">
@@ -1751,7 +1761,7 @@ document.addEventListener('click', e => {
 // Live star counts with localStorage cache
 // 顺序必须和 #opensource 里 .proj-item 的 DOM 顺序严格一致 —— 下面按索引配对。
 // 增删卡片或调整顺序时，这个数组要同步改，否则每张卡片会显示相邻项目的 star 数。
-const repos = ['VoiceTap','TabFlick','claude-rules','TaskTick','health-tick-release','smart-cleaner','CronPilot','ai-commit','skills-plugin','file-lens'];
+const repos = ['NetTick','VoiceTap','TabFlick','claude-rules','TaskTick','health-tick-release','smart-cleaner','CronPilot','ai-commit','skills-plugin','file-lens'];
 const items = document.querySelectorAll('#opensource .proj-item');
 const starCache = JSON.parse(localStorage.getItem('starCache') || '{}');
 
